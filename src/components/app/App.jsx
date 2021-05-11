@@ -1,22 +1,33 @@
 import React, { Component } from 'react'
-import pickRandomColor from '../../utils/pickRandomColor'
+import RandomColor from '../RandomColor'
+
 export default class App extends Component {
   state = {
-    color,
-    lastColor,
-    backgroundStyle: '',
-    intervalInSeconds: 1
+    color: '',
+    intervalInMilliseconds: 1000
   }
 
-  componentDidMount() {
+  componentDidMount = () => setInterval(() => {
+    this.newColor()
+  }, this.state.intervalInMilliseconds)
 
+  newColor = () => {
+    this.setState({
+      color: this.pickRandomColor()
+    })
+  }
+
+  pickRandomColor = () => {
+    const colors = ['#facade', '#c0ffee', '#fb1', '#f00', '#b00']
+    const index = Math.floor(Math.random() * colors.length)
+    return colors[index]
   }
 
   render() {
     return (
-      <div>
-        Bone Jour
-      </div>
+      <>
+        <RandomColor color = { this.state.color }/>
+      </>
     )
   }
 }
